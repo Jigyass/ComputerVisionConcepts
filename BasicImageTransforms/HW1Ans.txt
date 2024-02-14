@@ -1,11 +1,16 @@
 1a) 
-Index = row(number of columns) + column
-Index = 38(640)+52
-Index = 24372
+From Textbook, Chapter 1, 1.4.1
+(1.3) i = y(width)+x
+where i is index and x and y are coordinates from [x,y]
+Then,
+
+i = 52*640+38
+i = 33280+38
+i = 33318
 
 1b)
-I(0,1) = 2
+I(0,1) = 6
 I(1,1) = 7
-I(2,1) = 12
+I(2,1) = 8
 
 
