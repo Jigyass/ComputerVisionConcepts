@@ -1,3 +1,8 @@
+'''
+@author: Jigyas Sharma
+@organization: University of Kansas
+@Course: EECS 841(Computer Vision)
+'''
 import tkinter as tk
 from tkinter import filedialog
 import numpy as np
