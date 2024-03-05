@@ -72,11 +72,12 @@ def RunHistogram(image_path, title):
     PlotHistogram(equalized, "Equalized")
     plt.show()
 
-RunHistogram('/Users/darksst/Desktop/Github/ComputerVisionConcepts/HistogramTransformation/swan.pgm', 'SWAN')
 
+/Mac_Path
+RunHistogram('/Users/darksst/Desktop/Github/ComputerVisionConcepts/HistogramTransformation/swan.pgm', 'SWAN')
 RunHistogram('/Users/darksst/Desktop/Github/ComputerVisionConcepts/HistogramTransformation/tools.pgm', 'TOOLS')
 
-
+/UBUNTU_Path
 '''
 RunHistogram('/home/darksst/Desktop/ComputerVisionConcepts/HistogramTransformation/swan.pgm', 'SWAN')
 RunHistogram('/home/darksst/Desktop/ComputerVisionConcepts/HistogramTransformation/tools.pgm', 'TOOLS')
