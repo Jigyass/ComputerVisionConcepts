@@ -4,25 +4,28 @@ import random
 
 def flood_fill(image, x, y, newColor, visited):
     """
-    Recursively fills connected components of the image starting from (x, y).
+    Iteratively fills connected components of the image starting from (x, y).
     """
-    # Base case checks
-    if x < 0 or y < 0 or x >= image.shape[0] or y >= image.shape[1]:
-        return
-    if visited[x, y]:  # Only proceed if the pixel hasn't been visited
-        return
+    stack = [(x, y)]
+    oldColor = 255  # Assuming binary image with objects as white (255)
+    
+    while stack:
+        x, y = stack.pop()
+        
+        if x < 0 or y < 0 or x >= image.shape[0] or y >= image.shape[1]:
+            continue
+        if visited[x, y] or image[x, y, 0] != oldColor:  # Check the first channel for oldColor
+            continue
+        
+        visited[x, y] = True
+        image[x, y] = newColor
+        
+        # Push the four neighbors onto the stack
+        stack.append((x+1, y))
+        stack.append((x-1, y))
+        stack.append((x, y+1))
+        stack.append((x, y-1))
 
-    # Mark the pixel as visited
-    visited[x, y] = True
-    
-    # Color the pixel in the RGB image
-    image[x, y] = newColor
-    
-    # Recursive calls for the four neighbors
-    flood_fill(image, x+1, y, newColor, visited)
-    flood_fill(image, x-1, y, newColor, visited)
-    flood_fill(image, x, y+1, newColor, visited)
-    flood_fill(image, x, y-1, newColor, visited)
 
 def color_objects(binary_image_path):
     """
