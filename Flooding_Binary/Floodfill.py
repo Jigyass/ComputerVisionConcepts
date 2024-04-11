@@ -1,15 +1,18 @@
+'''
+@author: Jigyas Sharma
+@organization: University of Kansas
+@Course: EECS 841(Computer Vision)
+'''
 import cv2
 import numpy as np
 
-# Function to perform flood fill algorithm
+"""
+@function_description: Performs a flood fill algorithm on a given image starting from a seed point.
+@param image: Numpy array of the image.
+@param seed_point: Tuple (x, y) as the starting point for flood fill.
+@param fill_color: List [B, G, R] specifying the color used for filling.
+"""
 def flood_fill(image, seed_point, fill_color):
-    """
-    Performs a flood fill algorithm on a given image starting from a seed point.
-    
-    :param image: Numpy array of the image.
-    :param seed_point: Tuple (x, y) as the starting point for flood fill.
-    :param fill_color: List [B, G, R] specifying the color used for filling.
-    """
     h, w = image.shape[:2]
     mask = np.zeros((h + 2, w + 2), np.uint8)  # Additional border to avoid boundary issues
     cv2.floodFill(image, mask, seed_point, fill_color)
