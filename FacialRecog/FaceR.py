@@ -20,7 +20,7 @@ def getImages(dir_path):
     """
     images = []
     for file in os.listdir(dir_path):
-        img = cv2.imread(f'{dir_path}/{file}', 0)
+        img = cv2.imread(os.path.join(dir_path, file), cv2.IMREAD_GRAYSCALE)
         if img is None:
             print(f"Error: Unable to load image {file}")
         else:
@@ -54,15 +54,18 @@ def calculateScoreMatrix(gallery_set, probe_set):
     - probe_set: List of images in the probe set.
 
     Returns:
-    - score_matrix: Matrix containing similarity scores between probe and gallery images.
+    - score_matrix: One-dimensional array containing similarity scores between probe and gallery images.
     """
-    score_matrix = np.zeros((len(probe_set), len(gallery_set)))
-    for i in range(len(probe_set)):
-        for j in range(len(gallery_set)):
-            score_matrix[i, j] = normalizedCorrCoeff(probe_set[i], gallery_set[j])
+    score_matrix = []
+    for i in probe_set:
+        for j in gallery_set:
+            temp = normalizedCorrCoeff(i, j)
+            score_matrix.append(temp)
     return score_matrix
 
-def calculate_d_prime(score_matrix):
+
+
+def calculate_d_prime(Score_Array):
     """
     Calculate the d' value for face recognition performance evaluation.
 
@@ -74,12 +77,13 @@ def calculate_d_prime(score_matrix):
     """
     gal_score = []
     prob_score = []
-    for i in range(len(score_matrix)):
-        for j in range(len(score_matrix)):
+    for i in range(99):
+        for j in range(99):
+            temp = Score_Array[i, j]
             if i == j:
-                gal_score.append(score_matrix[i, j])
+                gal_score.append(temp)
             else:
-                prob_score.append(score_matrix[i, j])
+                prob_score.append(temp)
 
     mu1 = np.mean(gal_score)
     mu0 = np.mean(prob_score)
@@ -93,11 +97,13 @@ def calculate_d_prime(score_matrix):
 gallery_set = getImages('./GallerySet')
 probe_set = getImages('./ProbeSet')
 
-# Calculate score matrix
-score_matrix = calculateScoreMatrix(gallery_set, probe_set)
-print(f'Score Matrix A:\n{score_matrix[0:9, 0:9]}')
-
-# Calculate d' value
-d_prime = calculate_d_prime(score_matrix)
-print(f'd\' value: {d_prime}')
-
+#Calculate Score Matrix by calling the function
+Score_Matrix = []
+Score_Matrix = calculateScoreMatrix(gallery_set, probe_set)
+Score_Matrix = np.array(Score_Matrix)
+Score_Array = Score_Matrix.reshape(100,100)
+#Print the sub 10x10 matrix for validation
+print(f'Score Matrix A:\n{Score_Array[0:9, 0:9]}')
+#Calculate the d prime value
+d_prime = calculate_d_prime(Score_Array)
+print("d' value:", d_prime)
